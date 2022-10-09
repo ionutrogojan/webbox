@@ -8,9 +8,11 @@
 
 ### Available on some major platforms:
 
-- [x] Linux
-- [x] Windows
+- [x] [Linux](https://github.com/ionutrogojan/webbox/releases/tag/0.1.0)
+- [x] [Windows](https://github.com/ionutrogojan/webbox/releases/tag/0.1.0)
 - [ ] MacOS
+
+` ? - click the links to get the downloads `
 
 ---
 
@@ -67,4 +69,3 @@ https://dictionary.cambridge.org/us/dictionary/english/blazingly
 
 # to be determined
 ```
-

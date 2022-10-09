@@ -1,5 +1,7 @@
 # Webbox
 
+<p align="center"><img src="https://raw.githubusercontent.com/ionutrogojan/webbox/65bc4cd2983f8891e8b000b1d178fe7531beb698/webbox_icon.svg" width="128px"/></p>
+
 ### A light weight cli tool writen in Rust for it's blazingly fast execution while maintaining its safety, blazingly fast 😎
 
 ---
@@ -65,3 +67,4 @@ https://dictionary.cambridge.org/us/dictionary/english/blazingly
 
 # to be determined
 ```
+

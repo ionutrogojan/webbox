@@ -2,15 +2,15 @@
 <svg width="100%" height="100%" viewBox="0 0 128 128" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <g>
     <rect style="stroke: rgb(0, 0, 0); stroke-width: 0px; fill: rgb(119, 118, 123);" x="14" y="14" width="100" height="100" rx="8" ry="8"/>
-    <rect style="stroke: rgb(0, 0, 0); stroke-width: 0px; fill: rgb(192, 191, 188);" x="14" y="35.429" width="100" height="72" rx="8" ry="8"/>
+    <rect style="stroke: rgb(0, 0, 0); stroke-width: 0px; fill: rgb(192, 191, 188);" x="14" y="34" width="100" height="72" rx="8" ry="8"/>
   </g>
   <g>
-    <rect x="28.286" y="42.571" width="71.429" height="42.857" style="fill:#241f31;"/>
-    <rect x="42.571" y="56.857" width="7.143" height="7.143" style="fill:#f6f5f4;"/>
-    <rect x="42.571" y="71.143" width="7.143" height="7.143" style="fill:#f6f5f4;"/>
-    <rect x="49.714" y="64" width="7.143" height="7.143" style="fill:#f6f5f4;"/>
-    <rect x="64" y="71.143" width="21.429" height="7.143" style="fill:#f6f5f4;"/>
+    <rect x="28" y="42" width="72" height="40" style="fill: rgb(36, 31, 49);"/>
+    <rect x="44" y="50" width="8" height="8" style="fill:#f6f5f4;"/>
+    <rect x="44" y="66" width="8" height="8" style="fill:#f6f5f4;"/>
+    <rect x="52" y="58" width="8" height="8" style="fill:#f6f5f4;"/>
+    <rect x="70" y="66" width="22" height="8" style="fill:#f6f5f4;"/>
   </g>
-  <rect x="28.286" y="92.571" width="28.571" height="7.143" style="fill:#241f31;"/>
-  <rect x="92.571" y="92.571" width="7.143" height="7.143" style="fill:#ed333b;"/>
+  <rect x="28" y="89.96" width="30" height="8" style="fill:#241f31;"/>
+  <rect x="92" y="89.96" width="8" height="8" style="fill:#ed333b;"/>
 </svg>

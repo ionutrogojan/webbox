@@ -7,7 +7,7 @@
 ### Available on some major platforms:
 
 - [x] Linux
-- [ ] Windows
+- [x] Windows
 - [ ] MacOS
 
 ---
@@ -24,4 +24,44 @@ Once the file is created, run the program again and it should open, blazingly fa
 [LINKS]
 https://github.com/ionutrogojan/webbox
 
+```
+
+After the initial execution, open `config.wb` and paste your links like so:
+
+```ini
+[LINKS]
+https://github.com/ionutrogojan/webbox
+https://www.rust-lang.org/
+https://dictionary.cambridge.org/us/dictionary/english/blazingly
+```
+
+`!important` - do not add spaces, empty lines, comments or remove `[LINKS]`. You will break the program otherwise.
+
+---
+
+## Create a shortcut for blanzingly fast 😎 access
+
+```ini
+[Linux]
+
+1. open webbox.desktop
+2. change:
+  Icon=/path_to_icon/webbox_icon.svg
+  Exec=/path_to_executable/webbox_rs
+3. mv webbox.desktop ~/.local/share/applications
+4. reboot system to apply changes
+
+[Windows]
+
+# there is no way to create a shotcut without the gui
+1. right-click the desktop
+2. new > shortcut
+3. browse and select the .exe path
+4. type the name "webbox" and finish
+5. right-click the shortcut > porperties > change icon
+6. confirm the error > browse and select the .ico path
+
+[MacOS]
+
+# to be determined
 ```

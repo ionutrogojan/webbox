@@ -2,7 +2,7 @@
 
 <p align="center"><img src="https://raw.githubusercontent.com/ionutrogojan/webbox/65bc4cd2983f8891e8b000b1d178fe7531beb698/webbox_icon.svg" width="128px"/></p>
 
-### A light weight cli tool writen in Rust for it's blazingly fast execution while maintaining its safety, blazingly fast 😎
+### A light weight cli tool writen in Rust for its blazingly fast execution while maintaining its safety, blazingly fast 😎
 
 ---
 
@@ -18,7 +18,7 @@
 
 ## Add your desired links to the `config.wb` file and watch it work, blazingly fast 😎
 
-When your first open the program, there will be no `config.wb` file. The program creates a new file in the current directory and exits.
+When you first open the program, there will be no `config.wb` file. The program creates a new file in the current directory and exits.
 
 Once the file is created, run the program again and it should open, blazingly fast 😎
 
@@ -43,7 +43,7 @@ https://dictionary.cambridge.org/us/dictionary/english/blazingly
 
 ---
 
-## I can't find my `cofig.wb` file! Where is it?
+## I can't find my `config.wb` file! Where is it?
 
 ```ini
 [Linux]

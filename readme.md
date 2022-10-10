@@ -10,7 +10,7 @@
 
 - [x] [Linux](https://github.com/ionutrogojan/webbox/releases/tag/0.1.0)
 - [x] [Windows](https://github.com/ionutrogojan/webbox/releases/tag/0.1.0)
-- [ ] MacOS
+- [x] [MacOS](https://github.com/ionutrogojan/webbox/releases/tag/0.1.0)
 
 ` ? - click the links to get the downloads `
 
@@ -43,6 +43,24 @@ https://dictionary.cambridge.org/us/dictionary/english/blazingly
 
 ---
 
+## I can't find my `cofig.wb` file! Where is it?
+
+```ini
+[Linux]
+
+You will find the config.wb file inside the "HOME" directory
+
+[Windows]
+
+You will find config.wb inside the same directory as the .exe file
+
+[MacOs]
+
+You will find the config.wb file inside the "HOME" directory
+```
+
+---
+
 ## Create a shortcut for blanzingly fast 😎 access
 
 ```ini
@@ -67,5 +85,10 @@ https://dictionary.cambridge.org/us/dictionary/english/blazingly
 
 [MacOS]
 
-# to be determined
+# it's not pretty but it works
+1. open finder and make a new folder inside of ~/applications
+2. move the webbox file inside of it
+3. drag-and-drop the file on the desktop to create a shortcut
+# still working on adding an icon, to be determined on future versions
+
 ```

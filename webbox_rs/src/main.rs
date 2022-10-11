@@ -3,6 +3,7 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
 use::std::process;
+use::std::process::Command;
 use webbrowser;
 
 fn main() {
@@ -23,6 +24,10 @@ fn main() {
             }
         }
         println!("\nReady to \x1b[1;31mexit\x1b[0m.\n");
+        // close terminal after execution on macos
+        if cfg!(target_os = "macos") {
+            Command::new("kill").arg("Terminal").spawn().expect("terminal closing failed");
+        }
         process::exit(1);
     } else {
         let mut file = match File::create(&path) {

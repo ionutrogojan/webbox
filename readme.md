@@ -1,6 +1,6 @@
 # Webbox
 
-<p align="center"><img src="https://raw.githubusercontent.com/ionutrogojan/webbox/65bc4cd2983f8891e8b000b1d178fe7531beb698/webbox_icon.svg" width="128px"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/ionutrogojan/webbox/8f35d08f14740561eeb43aa785575d9928cff137/icon/webbox_icon.svg" width="480px"/></p>
 
 ### A light weight cli tool writen in Rust for its blazingly fast execution while maintaining its safety, blazingly fast 😎
 

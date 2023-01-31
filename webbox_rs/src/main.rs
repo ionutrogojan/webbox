@@ -44,11 +44,43 @@ fn main() {
             let arg = &args[2];
             match &cmd[..] {
                 "-new-link" => output_new(cmd, path, arg),
-                "-update-link" => output_message(cmd),
                 "-remove-link" => output_message(cmd),
-                "-switch-link" => output_message(cmd),
                 "-config-path" => output_message(cmd),
                 _ => eprintln!("\x1b[1;31mError\x1b[0m: Invalid command or argument \nUse \x1b[1;94m-help\x1b[0m to get a list of available commands\n")
+            }
+        },
+        4 => {
+            let cmd = &args[1];
+            let index: usize = match &args[2].parse() {
+                Ok(n) => *n,
+                Err(e) => { panic!("\x1b[1;31mError\x1b[0m: \x1b[1;35m{}\x1b[0m is not a positive integer\n{}", &args[2], e) }
+            };
+            let arg = &args[3];
+            match &cmd[..] {
+                "-update-link" => {
+                    if path.exists() {
+                        // get the links
+                        let config = fs::read_to_string(path).unwrap();
+                        // initialize the list
+                        let mut list =  vec![];
+                        // push each link inside the list
+                        for link in config.lines() { list.push(link) }
+                        // is the index in range
+                        if index < list.len() {
+                            // update the link at index
+                            list[index] = arg;
+                            // join the links back to a string
+                            let content = list.join("\n") + "\n";
+                            // update the file
+                            w_update_file(path, &content, "updated");
+                        }
+                        else { eprintln!("\x1b[1;31mError\x1b[0m: \x1b[1;35m{}\x1b[0m is not inside the list\nUse \x1b[1;94m-list\x1b[0m to get a list of available indexes\n", index) }
+                    }
+                },
+                "-switch-link" => {
+                    // TODO:
+                },
+                _ => eprintln!("\x1b[1;31mError\x1b[0m: Invalid command or argument \nUse \x1b[1;94m-help\x1b[0m to get a list of available commands\n")   
             }
         },
         // too many arguments

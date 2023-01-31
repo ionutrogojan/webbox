@@ -22,7 +22,7 @@ Once the file is created, run the program again and it should open, blazingly fa
 
 After the initial execution, use `./webbox -help` to view the available arguments
 
-⚠️ - do not manually edit the file. Doing so can result in breaking the program. Do so at your own risk.
+⚠️ - do not manually edit the file and doing so can result in breaking the program. You have been warn
 If the program does happen to break, delete the `config.webbox` file and run the binary without arguments in order to create a new config file using the internal template.
 
 ---
@@ -30,7 +30,7 @@ If the program does happen to break, delete the `config.webbox` file and run the
 ## I can't find my `config.webbox` file! Where is it?
 
 ```ini
-[Linux]
+[Linux / MacOS]
 
 You will find the config.webbox file inside the "HOME" directory
 
@@ -38,9 +38,6 @@ You will find the config.webbox file inside the "HOME" directory
 
 You will find config.webbox inside the same directory as the .exe file
 
-[MacOs]
-
-You will find the config.webbox file inside the "HOME" directory
 ```
 
 ---

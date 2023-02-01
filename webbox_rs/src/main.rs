@@ -13,6 +13,8 @@ fn main() {
     let args: Vec<String> = env::args().collect();
     // config file path -> Unix
     let path = Path::new(".webbox/config.webbox");
+    // links list
+    let config = fs::read_to_string(path).expect("\x1b[1;31mError\x1b[0m: Failed to read config file\n");
 
     match args.len() {
         1 => {
@@ -21,8 +23,6 @@ fn main() {
             // check file
             if path.exists() { println!("\"\x1b[1;35mconfig.webbox\x1b[0m\" file \x1b[0;93mexists.\x1b[0m\n") }
             else { w_update_file(path, content, "created") }
-            // links list
-            let config = fs::read_to_string(path).unwrap();
             // loop thourgh the links and open them at 50 milliseconds apart to avoid unordered execution
             for link in config.lines() { open_link(link, 50) }
             // empty line for looks
@@ -34,7 +34,7 @@ fn main() {
             let cmd = &args[1];
             match &cmd[..] {
                 "-help" => output_help(cmd),
-                "-list" => output_list(cmd, path),
+                "-list" => output_list(cmd, path, config),
                 // invalid command
                 _ => eprintln!("\x1b[1;31mError\x1b[0m: Invalid command \x1b[1;35m{}\x1b[0m\nUse \x1b[1;94m-help\x1b[0m to get a list of available commands\n", cmd)
             }
@@ -43,24 +43,37 @@ fn main() {
             let cmd = &args[1];
             let arg = &args[2];
             match &cmd[..] {
-                "-new-link" => output_new(cmd, path, arg),
-                "-remove-link" => output_message(cmd),
+                "-new-link" => output_new(cmd, path, arg, config),
+                "-remove-link" => {
+                    let index = arg.parse().expect("\x1b[1;31mError\x1b[0m: \x1b[1;35m[index]\x1b[0m is not a positive integer\n");
+                    if path.exists() {
+                        // initialize the list
+                        let mut list =  vec![];
+                        // push each link inside the list
+                        for link in config.lines() { list.push(link) }
+                        // is the index in range
+                        if index < list.len() {
+                            // remove the link at index
+                            list.remove(index);
+                            // join the links back to a string
+                            let content = list.join("\n") + "\n";
+                            // update the file
+                            w_update_file(path, &content, "updated");
+                        }
+                        else { eprintln!("\x1b[1;31mError\x1b[0m: index[\x1b[1;35m{}\x1b[0m] is not inside the list\nUse \x1b[1;94m-list\x1b[0m to get a list of available indexes\n", index) }
+                    }
+                },
                 "-config-path" => output_message(cmd),
                 _ => eprintln!("\x1b[1;31mError\x1b[0m: Invalid command or argument \nUse \x1b[1;94m-help\x1b[0m to get a list of available commands\n")
             }
         },
         4 => {
             let cmd = &args[1];
-            let index: usize = match &args[2].parse() {
-                Ok(n) => *n,
-                Err(e) => { panic!("\x1b[1;31mError\x1b[0m: \x1b[1;35m{}\x1b[0m is not a positive integer\n{}", &args[2], e) }
-            };
+            let index: usize = args[2].parse().expect("\x1b[1;31mError\x1b[0m: \x1b[1;35m[index]\x1b[0m is not a positive integer\n");
             let arg = &args[3];
             match &cmd[..] {
                 "-update-link" => {
                     if path.exists() {
-                        // get the links
-                        let config = fs::read_to_string(path).unwrap();
                         // initialize the list
                         let mut list =  vec![];
                         // push each link inside the list
@@ -78,7 +91,27 @@ fn main() {
                     }
                 },
                 "-switch-link" => {
-                    // TODO:
+                    if path.exists() {
+                        let index2: usize = arg.parse().expect("\x1b[1;31mError\x1b[0m: \x1b[1;35m[index_1]\x1b[0m is not a positive integer\n");
+                        // initialize the list
+                        let mut list =  vec![];
+                        // push each link inside the list
+                        for link in config.lines() { list.push(link) }
+                        // is the index in range
+                        if index < list.len() && index2 < list.len() {
+                            // temp hold index link
+                            let temp = list[index];
+                            // update the link at index with link at index2
+                            list[index] = list[index2];
+                            // update the link at index 2 with the link at index
+                            list[index2] = temp;
+                            // join the links back to a string
+                            let content = list.join("\n") + "\n";
+                            // update the file
+                            w_update_file(path, &content, "updated");
+                        }
+                        else { eprintln!("\x1b[1;31mError\x1b[0m: index[\x1b[1;35m{}\x1b[0m] or index[\x1b[1;35m{}\x1b[0m] is not inside the list\nUse \x1b[1;94m-list\x1b[0m to get a list of available indexes\n", index, index2) }
+                    }
                 },
                 _ => eprintln!("\x1b[1;31mError\x1b[0m: Invalid command or argument \nUse \x1b[1;94m-help\x1b[0m to get a list of available commands\n")   
             }
@@ -94,14 +127,12 @@ fn output_help(cmd: &String) {
     println!("\x1b[1;35m{}\x1b[0m command passed, running \x1b[1;94m{}\x1b[0m process\n\nRunning \x1b[1;94mWebbox\x1b[0m without commands will activate the main process \x1b[1;32m(opening the tabs)\x1b[0m\n\nHere are the available commands for \x1b[1;94mWebbox\x1b[0m!:\n\x1b[1;35m-help\x1b[0m : list of arguments | eg : ./webbox -help\n\x1b[1;35m-list\x1b[0m : list the existing links | eg : ./webbox -list\n\x1b[1;35m-new-link\x1b[0m \x1b[1;94m[link]\x1b[0m : add link to list | eg : ./webbox -new-link https://www.example.com\n\x1b[1;35m-update-link\x1b[0m \x1b[1;32m[index]\x1b[0m \x1b[1;94m[link]\x1b[0m : update existing link | eg : ./webbox -update-link 2 https://www.example.com\n\x1b[1;35m-remove-link\x1b[0m \x1b[1;32m[index]\x1b[0m : remove existing link | eg : ./webbox -remove-link 2\n\x1b[1;35m-config-path\x1b[0m : config file location | eg : ./webbox -config-path\n", cmd, cmd);
 }
 
-fn output_list(cmd: &String, file: &Path) {
+fn output_list(cmd: &String, file: &Path, config: String) {
     // argument message
     println!("\x1b[1;35m{}\x1b[0m command passed, running \x1b[1;94m{}\x1b[0m process\n", cmd, cmd);
     if file.exists() {
         // check confirmation
         println!("\"\x1b[1;35mconfig.webbox\x1b[0m\" file \x1b[0;93mexists.\x1b[0m\n");
-        // get file contents
-        let config = fs::read_to_string(file).unwrap();
         // enumerate throught the links
         for (index, link) in config.lines().enumerate() { println!("\x1b[1;35m{}\x1b[0m : \x1b[1;32m{}\x1b[0m", index, link) }
         // empty line for looks
@@ -110,11 +141,9 @@ fn output_list(cmd: &String, file: &Path) {
     else { eprintln!("\x1b[1;31mError\x1b[0m: Missing file \"\x1b[1;35mconfig.webbox\x1b[0m\"\n") }
 }
 
-fn output_new(cmd: &String, path: &Path, arg: &String) {
+fn output_new(cmd: &String, path: &Path, arg: &String, config: String) {
     // argument message
     println!("\x1b[1;35m{}\x1b[0m command passed, running \x1b[1;94m{}\x1b[0m process\n", cmd, cmd);
-    // read the file to string
-    let config = fs::read_to_string(path).unwrap();
     // add the new link to the string
     let content = config + arg + "\n";
     // update the file with the new text

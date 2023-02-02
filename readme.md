@@ -8,9 +8,10 @@
 
 ### Available on some major platforms:
 
-- [x] [Linux](https://github.com/ionutrogojan/webbox/releases/tag/0.1.0)
-- [x] [Windows](https://github.com/ionutrogojan/webbox/releases/tag/0.1.0)
-- [x] [MacOS](https://github.com/ionutrogojan/webbox/releases/tag/0.1.0)
+- [x] [Linux](https://github.com/ionutrogojan/webbox/releases/tag/0.1.0) - v0.2.0
+- [x] [Windows](https://github.com/ionutrogojan/webbox/releases/tag/0.1.0) - v0.2.0
+- [x] [MacOS](https://github.com/ionutrogojan/webbox/releases/tag/0.1.0) - v0.1.1
+- [x] [Source](https://github.com/ionutrogojan/webbox/releases/tag/0.1.0) - v0.2.0
 
 ---
 
@@ -22,12 +23,16 @@ Once the file is created, run the program again and it should open, blazingly fa
 
 After the initial execution, use `./webbox -help` to view the available arguments
 
-⚠️ - do not manually edit the file and doing so can result in breaking the program. You have been warn
+⚠️ - do not manually edit the file and doing so can result in breaking the program. You have been warn.
 If the program does happen to break, delete the `config.webbox` file and run the binary without arguments in order to create a new config file using the internal template.
 
 ---
 
 ## I can't find my `config.webbox` file! Where is it?
+
+Running `./webbox -config-path` will give you the path to the file but that file.
+
+⚠️ - running webbox with a system link such as a `.desktop` (linux) or `.link` (windows) file will not use the same config file as the one output by `./webbox -config-path` because system links run globaly on your system so the correct path to the `config.webbox` file is as follows:
 
 ```ini
 [Linux / MacOS]
@@ -39,6 +44,8 @@ You will find the config.webbox file inside the "HOME" directory
 You will find config.webbox inside the same directory as the .exe file
 
 ```
+
+// TODO: force config.webbox file path to always use the user's home directory for consistance and ease of use
 
 ---
 
@@ -61,7 +68,7 @@ You will find config.webbox inside the same directory as the .exe file
 2. new > shortcut
 3. browse and select the .exe path
 4. type the name "webbox" and finish
-5. right-click the shortcut > porperties > change icon
+5. right-click the shortcut > properties > change icon
 6. confirm the error > browse and select the .ico path
 
 [MacOS]
@@ -73,3 +80,8 @@ You will find config.webbox inside the same directory as the .exe file
 # still working on adding an icon, to be determined on future versions
 
 ```
+
+TODO:
+  - [ ] better error messages
+  - [ ] code refactor and cleanup
+  - [ ] macOs icon

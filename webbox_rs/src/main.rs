@@ -1,7 +1,7 @@
 use std::env;
 use std::io::Write;
 use std::path::Path;
-use std::fs::{ self, File };
+use std::fs::{ self, File, canonicalize };
 use::std::process:: { self, Command };
 use std::{ time::Duration, thread::sleep };
 // external
@@ -35,6 +35,7 @@ fn main() {
             match &cmd[..] {
                 "-help" => output_help(cmd),
                 "-list" => output_list(cmd, path, config),
+                "-config-path" => output_path(cmd, path),
                 // invalid command
                 _ => eprintln!("\x1b[1;31mError\x1b[0m: Invalid command \x1b[1;35m{}\x1b[0m\nUse \x1b[1;94m-help\x1b[0m to get a list of available commands\n", cmd)
             }
@@ -63,7 +64,6 @@ fn main() {
                         else { eprintln!("\x1b[1;31mError\x1b[0m: index[\x1b[1;35m{}\x1b[0m] is not inside the list\nUse \x1b[1;94m-list\x1b[0m to get a list of available indexes\n", index) }
                     }
                 },
-                "-config-path" => output_message(cmd),
                 _ => eprintln!("\x1b[1;31mError\x1b[0m: Invalid command or argument \nUse \x1b[1;94m-help\x1b[0m to get a list of available commands\n")
             }
         },
@@ -113,6 +113,7 @@ fn main() {
                         else { eprintln!("\x1b[1;31mError\x1b[0m: index[\x1b[1;35m{}\x1b[0m] or index[\x1b[1;35m{}\x1b[0m] is not inside the list\nUse \x1b[1;94m-list\x1b[0m to get a list of available indexes\n", index, index2) }
                     }
                 },
+                // invalid command
                 _ => eprintln!("\x1b[1;31mError\x1b[0m: Invalid command or argument \nUse \x1b[1;94m-help\x1b[0m to get a list of available commands\n")   
             }
         },
@@ -122,9 +123,8 @@ fn main() {
 }
 
 fn output_help(cmd: &String) {
-    // help spaghetti
-    // TODO: add -switch-link 
-    println!("\x1b[1;35m{}\x1b[0m command passed, running \x1b[1;94m{}\x1b[0m process\n\nRunning \x1b[1;94mWebbox\x1b[0m without commands will activate the main process \x1b[1;32m(opening the tabs)\x1b[0m\n\nHere are the available commands for \x1b[1;94mWebbox\x1b[0m!:\n\x1b[1;35m-help\x1b[0m : list of arguments | eg : ./webbox -help\n\x1b[1;35m-list\x1b[0m : list the existing links | eg : ./webbox -list\n\x1b[1;35m-new-link\x1b[0m \x1b[1;94m[link]\x1b[0m : add link to list | eg : ./webbox -new-link https://www.example.com\n\x1b[1;35m-update-link\x1b[0m \x1b[1;32m[index]\x1b[0m \x1b[1;94m[link]\x1b[0m : update existing link | eg : ./webbox -update-link 2 https://www.example.com\n\x1b[1;35m-remove-link\x1b[0m \x1b[1;32m[index]\x1b[0m : remove existing link | eg : ./webbox -remove-link 2\n\x1b[1;35m-config-path\x1b[0m : config file location | eg : ./webbox -config-path\n", cmd, cmd);
+    // help sausage 
+    println!("\x1b[1;35m{}\x1b[0m command passed, running \x1b[1;94m{}\x1b[0m process\n\nRunning \x1b[1;94mWebbox\x1b[0m without commands will activate the main process \x1b[1;32m(opening the tabs)\x1b[0m\n\nHere are the available commands for \x1b[1;94mWebbox\x1b[0m!:\n\x1b[1;35m-help\x1b[0m : list of arguments | eg : ./webbox -help\n\x1b[1;35m-list\x1b[0m : list the existing links | eg : ./webbox -list\n\x1b[1;35m-new-link\x1b[0m \x1b[1;94m[link]\x1b[0m : add link to list | eg : ./webbox -new-link https://www.example.com\n\x1b[1;35m-update-link\x1b[0m \x1b[1;32m[index]\x1b[0m \x1b[1;94m[link]\x1b[0m : update existing link | eg : ./webbox -update-link 2 https://www.example.com\n\x1b[1;35m-remove-link\x1b[0m \x1b[1;32m[index]\x1b[0m : remove existing link | eg : ./webbox -remove-link 2\n\x1b[1;35m-switch-link\x1b[0m \x1b[1;32m[index]\x1b[0m \x1b[1;32m[index]\x1b[0m : switch link position with another link | eg: -switch-link 2 1\n\x1b[1;35m-config-path\x1b[0m : config file location | eg : ./webbox -config-path\n", cmd, cmd);
 }
 
 fn output_list(cmd: &String, file: &Path, config: String) {
@@ -141,6 +141,13 @@ fn output_list(cmd: &String, file: &Path, config: String) {
     else { eprintln!("\x1b[1;31mError\x1b[0m: Missing file \"\x1b[1;35mconfig.webbox\x1b[0m\"\n") }
 }
 
+fn output_path(cmd: &String, path: &Path) {
+    // argument message
+    println!("\x1b[1;35m{}\x1b[0m command passed, running \x1b[1;94m{}\x1b[0m process\n", cmd, cmd);
+    // print config.webbox path
+    println!("{}\n", canonicalize(path).expect("\x1b[1;31mError\x1b[0m: Could not find the config file\nRun the program at least once in order to create it\n").display())
+}
+
 fn output_new(cmd: &String, path: &Path, arg: &String, config: String) {
     // argument message
     println!("\x1b[1;35m{}\x1b[0m command passed, running \x1b[1;94m{}\x1b[0m process\n", cmd, cmd);
@@ -148,10 +155,6 @@ fn output_new(cmd: &String, path: &Path, arg: &String, config: String) {
     let content = config + arg + "\n";
     // update the file with the new text
     w_update_file(path, &content, "updated");
-}
-
-fn output_message(cmd: &String) {
-    println!("\x1b[1;35m{}\x1b[0m command passed, running \x1b[1;94m{}\x1b[0m process\n\nThis command is yet to be implemented in future iterations\n", cmd, cmd)
 }
 
 fn macos_exit() {
@@ -189,4 +192,8 @@ fn w_update_file(path: &Path, content: &str, process: &str) {
         Ok(_) => println!("\"\x1b[1;35mconfig.webbox\x1b[0m\" file \x1b[0;93m{}.\x1b[0m\n", process),
         Err(e) => panic!("\n\x1b[1;31mError\x1b[0m writing file {} :\n \x1b[1;33m{}\x1b[0m.\n", path.display(), e)
     };
+}
+
+fn _output_message(cmd: &String) {
+    println!("\x1b[1;35m{}\x1b[0m command passed, running \x1b[1;94m{}\x1b[0m process\n\nThis command is yet to be implemented in future iterations\n", cmd, cmd)
 }

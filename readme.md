@@ -84,4 +84,5 @@ You will find config.webbox inside the same directory as the .exe file
 TODO:
   - [ ] better error messages
   - [ ] code refactor and cleanup
-  - [ ] macOs icon
+  - [ ] macOs icon [?](https://eshop.macsales.com/blog/28492-create-your-own-custom-icons-in-10-7-5-or-later/)
+  - [ ] consistant config path [?](https://docs.rs/dirs/1.0.5/dirs/index.html)

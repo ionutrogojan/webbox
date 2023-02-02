@@ -11,8 +11,9 @@ fn main() {
     println!("\nRunning \x1b[1;35mnew\x1b[0m \x1b[1;94mWebbox\x1b[0m!");
     let content = "https://github.com/ionutrogojan/webbox\nhttps://www.rust-lang.org/\nhttps://dictionary.cambridge.org/us/dictionary/english/blazingly\n";
     let args: Vec<String> = env::args().collect();
-    // config file path -> Unix
-    let path = Path::new(".webbox/config.webbox");
+    // config file path
+    let path = if cfg!(target_os = "windows") { Path::new(".webbox\\config.webbox") }
+    else { Path::new(".webbox/config.webbox") };
     // links list
     let config = fs::read_to_string(path).expect("\x1b[1;31mError\x1b[0m: Failed to read config file\n");
 

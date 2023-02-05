@@ -8,10 +8,10 @@
 
 ### Available on some major platforms:
 
-- [x] [Linux](https://github.com/ionutrogojan/webbox/releases/tag/0.2.0) - v0.2.1
-- [x] [Windows](https://github.com/ionutrogojan/webbox/releases/tag/0.2.0) - v0.2.1
-- [x] [MacOS](https://github.com/ionutrogojan/webbox/releases/tag/0.1.1) - v0.2.1
-- [x] [Source](https://github.com/ionutrogojan/webbox/releases/tag/0.2.0) - v0.2.1
+- [x] [Linux](https://github.com/ionutrogojan/webbox/releases/tag/0.2.1) - v0.2.1
+- [x] [Windows](https://github.com/ionutrogojan/webbox/releases/tag/0.2.1) - v0.2.1
+- [x] [MacOS](https://github.com/ionutrogojan/webbox/releases/tag/0.2.1) - v0.2.1
+- [x] [Source](https://github.com/ionutrogojan/webbox/releases/tag/0.2.1) - v0.2.1
 
 ---
 
